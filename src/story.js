@@ -48,9 +48,9 @@ const Story = (props) => {
       stopTimer();
     }
   };
-  console.log(children, delay)
+
   useInterval(nextImage, internalDelay);
-  console.log('useInterval')
+
   return (
     <section>
       <StorySlider imageWidth={w} pivot={idx}>{children}</StorySlider>
