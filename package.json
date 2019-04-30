@@ -28,6 +28,7 @@
     "build": "microbundle",
     "dev": "microbundle watch",
     "lint": "eslint src/**.js",
-    "test": "sh test"
+    "test": "sh test",
+    "prepublish": "yarn lint"
   }
 }
