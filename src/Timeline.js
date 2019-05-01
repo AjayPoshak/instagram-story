@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types'
 
 
@@ -7,7 +7,7 @@ const Timeline = (props) => {
 
   const renderElements = () => {
     const elements = [];
-    for (let i = 0; i < count; i + 1) {
+    for (let i = 0; i < count; i++) {
       let className = '';
       if (i < animationIndex) {
         className = '__fill';
@@ -35,4 +35,4 @@ Timeline.propTypes = {
   count: PropTypes.number.isRequired,
 }
 
-export default Timeline;
+export default memo(Timeline);
