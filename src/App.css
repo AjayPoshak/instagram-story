@@ -1,11 +1,12 @@
+.insta-story-container {
+  height: inherit;
+  width: 100%;
+  position: relative;
+}
+
 .slider-section {
   white-space: nowrap;
   overflow: hidden;
-  /* height: 667px;
-  width: 375px;
-  margin: 0 auto;
-  text-align: center;
-  position: relative; */
 }
 
 .slider {
@@ -18,7 +19,7 @@
 
 .timeline-section {
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 0;
 }
 
