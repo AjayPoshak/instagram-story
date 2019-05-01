@@ -24,7 +24,7 @@ function detectImageDimensions(imgURL) {
 
 const Story = (props) => {
   const { children, delay } = props;
-
+  
   const imageCount = React.Children.count(children);
 
   const [w, setW] = useState(0);
@@ -52,7 +52,7 @@ const Story = (props) => {
   useInterval(nextImage, internalDelay);
 
   return (
-    <section>
+    <section className="insta-story-container">
       <StorySlider imageWidth={w} pivot={idx}>{children}</StorySlider>
       <Timeline animationIndex={idx} count={imageCount} />
     </section>
