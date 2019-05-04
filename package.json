@@ -17,18 +17,24 @@
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.0",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-css-only": "^1.0.0",
+    "rollup-plugin-node-resolve": "^4.2.3"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "dependencies": {
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "rollup": "^1.11.0"
   },
   "scripts": {
     "build:cjs": "babel ./src --out-dir dist/commonjs --source-maps inline --copy-files",
     "build:esm": "BABEL_ENV=esm babel ./src --out-dir dist/esm --source-maps inline --copy-files",
     "build": "yarn build:cjs && yarn build:esm",
+    "build:rollup": "rollup -c rollup.config.js",
     "lint": "eslint src/**.js",
     "test": "sh test",
     "prepublishOnly": "yarn lint && yarn build"
