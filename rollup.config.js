@@ -17,6 +17,6 @@ export default {
       exclude: 'node_modules/**',
       presets: ['@babel/preset-env', '@babel/preset-react'],
     }),
-    css({ output: 'App.css' }),
+    css({ output: 'dist/cjs/App.css' }),
   ],
 }
