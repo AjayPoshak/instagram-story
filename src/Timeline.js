@@ -14,15 +14,37 @@ const Timeline = (props) => {
       } else if (i === animationIndex) {
         className = '__active';
       }
-      const element = <div className={className} key={i} />;
+
+      // Styling the div's
+      const elementStyle = {
+        width: '20%',
+        height: '2px',
+        margin: '5px',
+        backgroundColor: '#999',
+      }
+
+      const element = <div style={elementStyle} className={className} key={i} />;
       elements.push(element);
     }
     return elements;
   };
 
+  const timelineStyle = {
+    width: 'inherit',
+    position: 'fixed',
+    bottom: 0,
+  }
+
+  const timelineArticleStyle = {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+
   return (
-    <section className="timeline-section">
-      <article>
+    <section style={timelineStyle}>
+      <article style={timelineArticleStyle}>
         {renderElements()}
       </article>
     </section>

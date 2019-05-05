@@ -23,7 +23,7 @@ function detectImageDimensions(imgURL) {
 }
 
 const Story = (props) => {
-  const { children, delay } = props;
+  const { children, delay, getCurrentSlideIndex } = props;
   
   const imageCount = React.Children.count(children);
 
@@ -51,6 +51,8 @@ const Story = (props) => {
 
   useInterval(nextImage, internalDelay);
 
+  // Call `getCurrentSlideIndex` to notify updated slide index 
+  getCurrentSlideIndex(idx)
   return (
     <section className="insta-story-container">
       <StorySlider imageWidth={w} pivot={idx}>{children}</StorySlider>
@@ -59,11 +61,16 @@ const Story = (props) => {
   );
 };
 
+Story.defaultProps = {
+  getCurrentSlideIndex: () => {},
+}
+
 Story.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
+  getCurrentSlideIndex: PropTypes.func,
   delay: PropTypes.string.isRequired,
 }
 

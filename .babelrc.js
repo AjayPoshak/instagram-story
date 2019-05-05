@@ -6,7 +6,6 @@ module.exports = {
 	plugins: [
 		'@babel/plugin-transform-runtime',
 		'@babel/plugin-proposal-object-rest-spread',
-		'@babel/proposal-class-properties',
 	],
 	env: {
 		// Configuration for ES Modules
@@ -15,7 +14,6 @@ module.exports = {
 			plugins: [
 				['@babel/plugin-transform-runtime', { useESModules: true }],
 				'@babel/plugin-proposal-object-rest-spread',
-				'@babel/proposal-class-properties',
 			],
 		},
 	},
