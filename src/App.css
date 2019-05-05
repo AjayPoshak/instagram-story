@@ -1,10 +1,11 @@
 .insta-story-container {
   height: inherit;
-  width: 100%;
+  width: inherit;
   position: relative;
 }
 
 .slider-section {
+  width: inherit;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -18,7 +19,7 @@
 }
 
 .timeline-section {
-  width: 100%;
+  width: inherit;
   position: fixed;
   bottom: 0;
 }
