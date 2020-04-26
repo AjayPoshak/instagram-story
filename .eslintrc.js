@@ -21,9 +21,11 @@ module.exports = {
     ],
     "rules": {
         "semi": "off",
+        "no-tabs": "off",
         "no-plusplus": "off",
         "react/jsx-filename-extension": "off",
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "error"
+        "react-hooks/exhaustive-deps": "error",
+        "indent": ['error', 'tab', { "SwitchCase": 1 }],
     }
 };
