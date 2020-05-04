@@ -1,8 +1,46 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
+function addStyles(selector, styles, styleClass) {
+	if (styles.length) {
+		const style = document.createElement('style');
+		style.classList.add(styleClass);
+		document.head.appendChild(style);
+		const styleSheet = style.sheet;
+		styleSheet.insertRule(
+			`${selector} { ${styles} }`,
+			styleSheet?.cssRules?.length,
+		);
+	}
+}
 
 const Timeline = props => {
 	const { animationIndex, count, align } = props;
+
+	useEffect(() => {
+		const timelineStyle = `
+			content: '';
+			width: 100%;
+			height: 2px;
+			display: block;
+			background-color: #fff;
+			transform-origin: 0% center 0px;
+			animation: loader 2s linear;
+		`
+		const fillStyle = 'background-color: #fff !important;'
+		const loaderAnimation = ` 
+			0% {
+				transform: scaleX(0);
+			  }
+			  100% {
+			  	transform: scaleX(1);
+			  }
+		  
+		 `
+		addStyles('.__active::after', timelineStyle, 'styleClass')
+		addStyles('.__fill', fillStyle, 'fillClass')
+		addStyles('@keyframes loader', loaderAnimation, 'animationClass')
+	}, [])
 
 	const renderElements = () => {
 		const elements = [];
@@ -53,8 +91,9 @@ const Timeline = props => {
 };
 
 Timeline.propTypes = {
-	animationIndex: PropTypes.number.isRequired,
+	align: PropTypes.string.isRequired,
 	count: PropTypes.number.isRequired,
+	animationIndex: PropTypes.number.isRequired,
 };
 
 export default memo(Timeline);
