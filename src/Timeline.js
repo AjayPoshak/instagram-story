@@ -1,17 +1,19 @@
 import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function addStyles(selector, styles, styleClass) {
+function addStyles(selector, styles, id) {
 	if (styles.length) {
 		const style = document.createElement('style');
-		style.classList.add(styleClass);
+		style.id = id;
 		document.head.appendChild(style);
 		const styleSheet = style.sheet;
-		styleSheet.insertRule(
-			`${selector} { ${styles} }`,
-			styleSheet?.cssRules?.length,
-		);
+		styleSheet.insertRule(`${selector} { ${styles} }`, styleSheet?.cssRules?.length);
 	}
+}
+
+function removeElement(selector) {
+	const element = document.querySelector(selector)
+	if (element) element.remove()
 }
 
 const Timeline = props => {
@@ -26,8 +28,8 @@ const Timeline = props => {
 			background-color: #fff;
 			transform-origin: 0% center 0px;
 			animation: loader 2s linear;
-		`
-		const fillStyle = 'background-color: #fff !important;'
+		`;
+		const fillStyle = 'background-color: #fff !important;';
 		const loaderAnimation = ` 
 			0% {
 				transform: scaleX(0);
@@ -36,11 +38,17 @@ const Timeline = props => {
 			  	transform: scaleX(1);
 			  }
 		  
-		 `
-		addStyles('.__active::after', timelineStyle, 'styleClass')
-		addStyles('.__fill', fillStyle, 'fillClass')
-		addStyles('@keyframes loader', loaderAnimation, 'animationClass')
-	}, [])
+		 `;
+		addStyles('.__active::after', timelineStyle, 'js-insta-story-plugin-active');
+		addStyles('.__fill', fillStyle, 'js-insta-story-plugin-fill');
+		addStyles('@keyframes loader', loaderAnimation, 'js-insta-story-plugin-animation');
+
+		return (() => {
+			removeElement('js-insta-story-plugin-active')
+			removeElement('js-insta-story-plugin-fill')
+			removeElement('js-insta-story-plugin-animation')
+		})
+	}, []);
 
 	const renderElements = () => {
 		const elements = [];
@@ -68,7 +76,7 @@ const Timeline = props => {
 
 	const alignContainer = {
 		...(align === 'top' ? { top: '0' } : { bottom: '0' }),
-	}
+	};
 
 	const timelineStyle = {
 		width: 'inherit',
