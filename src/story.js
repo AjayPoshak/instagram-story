@@ -5,20 +5,6 @@ import Timeline from './Timeline';
 import StorySlider from './StorySlider';
 import useInterval from './useInterval';
 
-import './App.css';
-
-function addStyles(selector, styles) {
-	if (styles.length) {
-		const style = document.createElement('style');
-		style.classList.add('styleClass');
-		document.head.appendChild(style);
-		const styleSheet = style.sheet;
-		styleSheet.insertRule(
-			`${selector} { ${styles} }`,
-			styleSheet.cssRules.length,
-		);
-	}
-}
 
 function detectImageDimensions(imgURL) {
 	const img = document.createElement('img');
@@ -52,6 +38,7 @@ const Story = props => {
 			});
 		}
 	});
+
 
 	const stopTimer = () => {
 		setInternalDelay(null);
@@ -87,10 +74,12 @@ const Story = props => {
 };
 
 Story.defaultProps = {
+	timelineAlign: 'top',
 	getCurrentSlideIndex: () => {},
 };
 
 Story.propTypes = {
+	timelineAlign: PropTypes.string,
 	delay: PropTypes.string.isRequired,
 	getCurrentSlideIndex: PropTypes.func,
 	imageWidth: PropTypes.string.isRequired,
