@@ -3,7 +3,6 @@ import React, { useState, memo, useEffect } from 'react';
 
 import Timeline from './Timeline';
 import StorySlider from './StorySlider';
-import useInterval from './useInterval';
 
 
 function detectImageDimensions(imgURL) {
@@ -29,7 +28,6 @@ const Story = props => {
 
 	const [width, setWidth] = useState(imageWidth);
 	const [idx, setIdx] = useState(0);
-	const [internalDelay, setInternalDelay] = useState(delay);
 
 	useEffect(() => {
 		if (width === 0) {
@@ -37,22 +35,14 @@ const Story = props => {
 				setWidth(res.width);
 			});
 		}
-	});
+	}, [children, width]);
 
 
-	const stopTimer = () => {
-		setInternalDelay(null);
-	};
-
-	const nextImage = () => {
+	const onCarouselIndexChange = () => {
 		if (idx < imageCount - 1) {
 			setIdx(idx + 1);
-		} else {
-			stopTimer();
 		}
 	};
-
-	useInterval(nextImage, internalDelay);
 
 	// Call `getCurrentSlideIndex` to notify updated slide index
 	getCurrentSlideIndex(idx);
@@ -60,6 +50,7 @@ const Story = props => {
 	const storyContainerStyle = {
 		width: 'inherit',
 		height: 'inherit',
+		overflow: 'hidden',
 		position: 'relative',
 	};
 
@@ -68,7 +59,13 @@ const Story = props => {
 			<StorySlider imageWidth={width} pivot={idx}>
 				{children}
 			</StorySlider>
-			<Timeline animationIndex={idx} count={imageCount} align={timelineAlign} />
+			<Timeline
+				delay={delay}
+				count={imageCount}
+				animationIndex={idx}
+				align={timelineAlign}
+				onCarouselIndexChange={onCarouselIndexChange}
+			/>
 		</section>
 	);
 };
