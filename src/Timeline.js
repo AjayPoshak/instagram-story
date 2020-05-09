@@ -66,7 +66,6 @@ const Timeline = props => {
 			} else if (i === animationIndex) {
 				className = '__active';
 			}
-
 			// Styling the div's
 			const elementStyle = {
 				flex: '1 0',
@@ -79,6 +78,7 @@ const Timeline = props => {
 				key={i}
 				style={elementStyle}
 				className={className}
+				data-testid={`timeline-${i}`}
 				onAnimationEnd={handleAnimationEnd}
 			/>;
 			elements.push(element);
@@ -104,7 +104,7 @@ const Timeline = props => {
 	};
 
 	return (
-		<section style={timelineStyle}>
+		<section style={timelineStyle} data-testid="timeline-root">
 			<article style={timelineArticleStyle}>{renderElements()}</article>
 		</section>
 	);
