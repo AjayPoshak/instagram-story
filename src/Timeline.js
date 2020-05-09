@@ -17,9 +17,17 @@ function removeElement(selector) {
 }
 
 const Timeline = props => {
-	const { animationIndex, count, align } = props;
+	const {
+		animationIndex, count, align, onCarouselIndexChange, delay,
+	} = props;
+
+	const handleAnimationEnd = () => {
+		const newIndex = animationIndex + 1
+		onCarouselIndexChange(newIndex)
+	}
 
 	useEffect(() => {
+		const delayInSecs = delay / 1000
 		const timelineStyle = `
 			content: '';
 			width: 100%;
@@ -27,7 +35,7 @@ const Timeline = props => {
 			display: block;
 			background-color: #fff;
 			transform-origin: 0% center 0px;
-			animation: loader 2s linear;
+			animation: loader ${delayInSecs}s linear;
 		`;
 		const fillStyle = 'background-color: #fff !important;';
 		const loaderAnimation = ` 
@@ -37,18 +45,17 @@ const Timeline = props => {
 			  100% {
 			  	transform: scaleX(1);
 			  }
-		  
-		 `;
+		`;
 		addStyles('.__active::after', timelineStyle, 'js-insta-story-plugin-active');
 		addStyles('.__fill', fillStyle, 'js-insta-story-plugin-fill');
 		addStyles('@keyframes loader', loaderAnimation, 'js-insta-story-plugin-animation');
 
 		return (() => {
-			removeElement('js-insta-story-plugin-active')
 			removeElement('js-insta-story-plugin-fill')
+			removeElement('js-insta-story-plugin-active')
 			removeElement('js-insta-story-plugin-animation')
 		})
-	}, []);
+	}, [delay]);
 
 	const renderElements = () => {
 		const elements = [];
@@ -68,7 +75,12 @@ const Timeline = props => {
 				backgroundColor: '#999',
 			};
 
-			const element = <div style={elementStyle} className={className} key={i} />;
+			const element = <div
+				key={i}
+				style={elementStyle}
+				className={className}
+				onAnimationEnd={handleAnimationEnd}
+			/>;
 			elements.push(element);
 		}
 		return elements;
@@ -99,8 +111,10 @@ const Timeline = props => {
 };
 
 Timeline.propTypes = {
+	delay: PropTypes.string.isRequired,
 	align: PropTypes.string.isRequired,
 	count: PropTypes.number.isRequired,
+	onCarouselIndexChange: PropTypes.func.isRequired,
 	animationIndex: PropTypes.number.isRequired,
 };
 
