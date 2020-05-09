@@ -8,6 +8,7 @@ module.exports = {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
+    parser: "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -27,5 +28,9 @@ module.exports = {
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "error",
         "indent": ['error', 'tab', { "SwitchCase": 1 }],
+        "arrow-parens": ["error", "as-needed"],
+        'react/jsx-indent': 0, // Prettier.
+		'react/jsx-indent-props': 0, // Prettier.
+		'react/jsx-wrap-multilines': 0, // Prettier.
     }
 };
