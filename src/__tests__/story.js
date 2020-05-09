@@ -7,8 +7,9 @@ jest.useFakeTimers();
 
 describe('story', () => {
 	test('animation runs', () => {
+		const getCurrentSlideIndex = jest.fn();
 		const { container } = render(
-			<Story delay="6000" imageWidth="628px">
+			<Story delay="6000" imageWidth="628px" getCurrentSlideIndex={getCurrentSlideIndex}>
 				<img
 					data-testid="img-1"
 					src="https://in.bmscdn.com/fanhood/categories/star-wars-1/small/story/1.jpg"
@@ -39,6 +40,8 @@ describe('story', () => {
 		expect(screen.getByTestId('timeline-0').classList.contains('__active')).toBe(true);
 		expect(screen.getByTestId('timeline-1').classList.contains('__active')).toBe(false);
 		expect(screen.getByTestId('timeline-2').classList.contains('__active')).toBe(false);
+		expect(getCurrentSlideIndex).toHaveBeenCalledTimes(1);
+		expect(getCurrentSlideIndex).toHaveBeenCalledWith(0);
 
 		act(() => {
 			jest.advanceTimersByTime(6000);
@@ -60,6 +63,8 @@ describe('story', () => {
 
 		expect(screen.getByTestId('timeline-2').classList.contains('__active')).toBe(false);
 		expect(screen.getByTestId('timeline-2').classList.contains('__fill')).toBe(false);
+		expect(getCurrentSlideIndex).toHaveBeenCalledTimes(2);
+		expect(getCurrentSlideIndex).toHaveBeenCalledWith(1);
 
 		act(() => {
 			jest.advanceTimersByTime(6000);
@@ -82,6 +87,8 @@ describe('story', () => {
 
 		expect(screen.getByTestId('timeline-2').classList.contains('__active')).toBe(true);
 		expect(screen.getByTestId('timeline-2').classList.contains('__fill')).toBe(false);
+		expect(getCurrentSlideIndex).toHaveBeenCalledTimes(3);
+		expect(getCurrentSlideIndex).toHaveBeenCalledWith(2);
 
 		act(() => {
 			jest.advanceTimersByTime(6000);
